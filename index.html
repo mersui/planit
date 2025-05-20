@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Planit - Task Galaxy</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffd6ec, #e5d4ff);
+      color: #3a003a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+
+    #task-form {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    input[type="text"] {
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      border: none;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      background-color: #ff85c1;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .task-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .planet {
+      background: linear-gradient(145deg, #f3c1e0, #e5d4ff);
+      border-radius: 50%;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      position: relative;
+      box-shadow: 0 0 15px rgba(255, 133, 193, 0.4);
+      text-align: center;
+    }
+
+    .planet p {
+      margin: 0.5rem 0 0;
+      font-size: 1rem;
+      word-wrap: break-word;
+    }
+
+    .planet button {
+      margin-top: 0.5rem;
+      background-color: #ff5c8a;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌸 Planit – Task Galaxy</h1>
+
+  <form id="task-form">
+    <input type="text" id="task-input" placeholder="Enter your task..." required />
+    <button type="submit">Add</button>
+  </form>
+
+  <div class="task-list" id="task-list">
+    <!-- Tasks will appear here -->
+  </div>
+
+  <script>
+    const taskForm = document.getElementById('task-form');
+    const taskInput = document.getElementById('task-input');
+    const taskList = document.getElementById('task-list');
+
+    taskForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const taskText = taskInput.value.trim();
+      if (taskText) {
+        addTask(taskText);
+        taskInput.value = '';
+      }
+    });
+
+    function addTask(text) {
+      const planet = document.createElement('div');
+      planet.className = 'planet';
+      planet.innerHTML = `
+        <p>${text}</p>
+        <button onclick="this.parentElement.remove()">🗑️</button>
+      `;
+      taskList.appendChild(planet);
+    }
+  </script>
+</body>
+</html>
